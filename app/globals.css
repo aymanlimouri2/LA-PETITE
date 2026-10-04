@@ -27,6 +27,7 @@
 
   --spacing: 0.1rem;
   --spacing-px: 1px;
+  --border-width-px: 1px;
   --spacing-margin: var(--margin);
   --spacing-gutter: var(--gutter);
   --spacing-header: var(--header-height);
@@ -473,12 +474,14 @@
   }
 }
 
-/* Discover pill */
-.widget {
+/* Discover pill and the simple pill on inner pages */
+.widget,
+.widget-simple {
   position: relative;
 }
 
-.widget::before {
+.widget::before,
+.widget-simple::before {
   content: '';
   position: absolute;
   top: 0;
@@ -491,31 +494,48 @@
   transition: scale var(--transition-duration-smooth) var(--ease-out);
 }
 
-.widget .widget-title,
-.widget .widget-cta {
+:is(.widget, .widget-simple) :is(.widget-title, .widget-cta, .widget-left, .widget-right) {
   transition: translate var(--transition-duration-smooth) var(--ease-out);
 }
 
-.widget .widget-icon svg {
+:is(.widget, .widget-simple) .widget-icon svg {
   transition: rotate var(--transition-duration-smooth) var(--ease-out);
 }
 
 @media (hover: hover) {
-  .widget:not(.a):hover::before {
+  :is(.widget, .widget-simple):not(.a):hover::before {
     scale: 1.05;
   }
 
-  .widget:not(.a):hover .widget-title {
+  :is(.widget, .widget-simple):not(.a):hover :is(.widget-title, .widget-left) {
     translate: -0.5rem 0;
   }
 
-  .widget:not(.a):hover .widget-cta {
+  :is(.widget, .widget-simple):not(.a):hover :is(.widget-cta, .widget-right) {
     translate: 0.5rem 0;
   }
 
-  .widget:not(.a):hover .widget-icon svg {
+  :is(.widget, .widget-simple):not(.a):hover .widget-icon svg {
     rotate: -90deg;
   }
+}
+
+.cover-manifesto h1 strong {
+  font-weight: 400;
+  color: var(--color-black);
+}
+
+.follow-mouse-img .lazy.loaded {
+  opacity: 1;
+  transition-duration: 0s;
+}
+
+.single-work section:last-child {
+  margin-bottom: 0;
+}
+
+.single-work section:last-child.content {
+  margin-bottom: 8rem;
 }
 
 .widget-block-title {
@@ -562,21 +582,21 @@
   .stack-cards-wrapper {
     height: var(--container-height);
   }
-}
 
-.stack-cards-card {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: var(--card-height);
-}
+  .stack-cards-card {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--card-height);
+  }
 
-.stack-cards-card .stack-cards-card-inner {
-  position: sticky;
-  top: calc(
-    var(--top-offset) + var(--scroll-offset, 0px) * var(--scroll-progress, 0) - var(--final-offset, 0px)
-  );
+  .stack-cards-card .stack-cards-card-inner {
+    position: sticky;
+    top: calc(
+      var(--top-offset) + var(--scroll-offset, 0px) * var(--scroll-progress, 0) - var(--final-offset, 0px)
+    );
+  }
 }
 
 /* Newsletter error state */

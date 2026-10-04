@@ -97,3 +97,21 @@ export const menus = locations.map((l) => ({ ...l.menu, location: l }))
 export const email = tbd('Email')
 
 export const year = 2026
+
+/*
+ * Shop: the product kinds shown in the brand book. Which ones are sold,
+ * prices and online sales are TBD, so tiles carry no prices or links.
+ */
+export const shopItems: { name: string; tone: Tone }[] = [
+  { name: 'Coffee bags', tone: 'cinnamon' },
+  { name: 'Granola', tone: 'harvest' },
+  { name: 'Bottled cold brew', tone: 'beans' },
+  { name: 'Bottled Spanish latte', tone: 'rustic' },
+  { name: 'Dessert boxes', tone: 'tawny' },
+]
+
+/* Story page commitment cards: titles from the brand book, copy TBD. */
+export const commitments = [
+  { title: 'Emirates Bio Farm', text: site.brandLines.farm },
+  ...site.values.map((title) => ({ title, text: tbd('Card copy') })),
+]
