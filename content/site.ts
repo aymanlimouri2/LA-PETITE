@@ -8,13 +8,18 @@ export const TBD = 'TBD'
 
 export const tbd = (what: string) => `${what} TBD`
 
-/* Brand book placeholder tones for neutral image blocks (photography TBD). */
+/*
+ * Placeholder tones for neutral image blocks (photography TBD).
+ * The brown tones are pure white at ayman's request (2026-10-04); their
+ * brand book values were cinnamon #5f3f30, tawny #896447, harvest #ac947c,
+ * rustic #b0a498.
+ */
 export const tones = {
   beans: '#221d19',
-  cinnamon: '#5f3f30',
-  tawny: '#896447',
-  harvest: '#ac947c',
-  rustic: '#b0a498',
+  cinnamon: '#ffffff',
+  tawny: '#ffffff',
+  harvest: '#ffffff',
+  rustic: '#ffffff',
   almond: '#f0e3d2',
 } as const
 

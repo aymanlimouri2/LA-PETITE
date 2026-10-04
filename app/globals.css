@@ -16,7 +16,8 @@
   --color-beige: #ddd4b9;
   /* Secondary text: black at reduced opacity instead of the reference's grey (digital extension). */
   --color-mist: color-mix(in srgb, #282422 36%, transparent);
-  --color-red: #5f3f30;
+  /* Was brand book cinnamon #5f3f30; brown replaced with pure white (2026-10-04). */
+  --color-red: #ffffff;
   --color-transparent: transparent;
   --color-current: currentColor;
 

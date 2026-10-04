@@ -15,7 +15,7 @@ export function Placeholder({
   className?: string
   innerClassName?: string
 }) {
-  const dark = tone === 'beans' || tone === 'cinnamon' || tone === 'tawny'
+  const dark = tone === 'beans'
   return (
     <div className={`image w-full h-full ${className}`}>
       <figure className="w-full h-full m-0">
