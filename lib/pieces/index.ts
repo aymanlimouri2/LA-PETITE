@@ -1,0 +1,8 @@
+import './text'
+import './parallax-image'
+import './cover-home'
+import './works'
+import './works-grid'
+import './vision'
+import './process'
+import './footer'
