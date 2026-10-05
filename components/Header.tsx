@@ -7,7 +7,7 @@ export function Header() {
     <header className="header sticky top-0 left-0 grid-w content-end w-full h-header text-black z-header">
       <div className="col-span-3 md:col-span-2">
         <a href="/" aria-label="Home" className="header-logo flex w-145 overflow-hidden">
-          <Wordmark />
+          <Wordmark tone="auto" />
         </a>
       </div>
       <div className="col-span-3 md:col-span-10 flex justify-end xl:hidden overflow-hidden">
@@ -50,7 +50,7 @@ export function Header() {
           <div className="absolute top-0 left-0 w-full h-header grid-w content-end">
             <div className="col-span-3 md:col-span-2">
               <a href="/" aria-label="Home" className="flex w-145 overflow-hidden">
-                <Wordmark />
+                <Wordmark tone="black" />
               </a>
             </div>
             <div className="col-span-3 md:col-span-10 flex justify-end xl:hidden overflow-hidden">

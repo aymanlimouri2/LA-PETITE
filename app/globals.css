@@ -320,19 +320,36 @@
 
 /* Wordmark placeholder (vector letters TBD from TB.D) */
 .wordmark {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  position: relative;
   width: 100%;
-  font-family: var(--font-display);
-  line-height: 0.8;
-  white-space: nowrap;
-  text-transform: uppercase;
 }
 
 .wordmark-letter {
-  display: inline-block;
+  position: absolute;
   will-change: transform;
+}
+
+.wordmark-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+}
+
+/* Stacked logo files follow the header's light state with its colour transition. */
+.wordmark-auto .wordmark-img {
+  transition: opacity var(--transition-duration-normal) var(--ease-out);
+}
+
+.wordmark-auto .wordmark-img-white,
+.header-light .wordmark-auto .wordmark-img-black {
+  opacity: 0;
+}
+
+.header-light .wordmark-auto .wordmark-img-white {
+  opacity: 1;
 }
 
 /* Header */
@@ -609,12 +626,6 @@
 #newsletter-form.error input,
 #newsletter-form.error input::placeholder {
   color: var(--color-red);
-}
-
-.wordmark-space {
-  display: inline-block;
-  flex: none;
-  width: 0.35em;
 }
 
 @utility font-arabic {

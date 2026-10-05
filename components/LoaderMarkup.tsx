@@ -8,12 +8,14 @@ export function LoaderMarkup() {
       <div className="loader-panel absolute-full bg-white z-loader" />
       <div className="loader fixed top-0 left-0 flex justify-center items-center px-margin w-screen h-screen-mobile xl:h-screen pointer-events-none">
         <div className="loader-logo relative w-full text-white py-margin overflow-hidden">
-          <div className="relative w-full">
+          {/* Clipped at the logo's own box: the official logo is taller for its width than the
+              reference logotype, so the margin alone no longer hides letters that have rolled out. */}
+          <div className="relative w-full overflow-hidden">
             <div className="loader-logo-top w-full">
-              <Wordmark />
+              <Wordmark tone="white" />
             </div>
             <div className="loader-logo-bottom absolute top-0 left-0 w-full">
-              <Wordmark />
+              <Wordmark tone="white" />
             </div>
           </div>
         </div>

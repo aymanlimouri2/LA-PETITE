@@ -3,7 +3,6 @@
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useLayoutEffect, useRef, type ReactNode } from 'react'
 import type { Site } from '@/lib/motion/site'
-import { fitWordmarks } from '@/lib/motion/fit'
 import { Header } from './Header'
 import { LoaderMarkup } from './LoaderMarkup'
 
@@ -19,11 +18,12 @@ export function Shell({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     let cancelled = false
-    const onResize = () => fitWordmarks()
-    window.addEventListener('resize', onResize)
-    Promise.all([document.fonts.ready, import('@/lib/motion/site')]).then(([, mod]) => {
+    // The loader starts once fonts and the logo letters are ready to paint.
+    const logo = Array.from(document.querySelectorAll<HTMLImageElement>('.wordmark-img')).map((img) =>
+      img.decode().catch(() => undefined),
+    )
+    Promise.all([document.fonts.ready, import('@/lib/motion/site'), ...logo]).then(([, mod]) => {
       if (cancelled) return
-      fitWordmarks()
       site.current = new mod.Site({
         push: (href) => router.push(href, { scroll: false }),
         prefetch: (href) => router.prefetch(href),
@@ -31,7 +31,6 @@ export function Shell({ children }: { children: ReactNode }) {
     })
     return () => {
       cancelled = true
-      window.removeEventListener('resize', onResize)
       site.current?.destroy()
       site.current = null
     }
@@ -40,7 +39,6 @@ export function Shell({ children }: { children: ReactNode }) {
 
   useLayoutEffect(() => {
     if (!site.current) return
-    fitWordmarks()
     site.current.onRouteCommitted()
   }, [pathname])
 

@@ -99,7 +99,7 @@ export function Footer() {
           <div className="footer-bottom-inner flex flex-col gap-y-20">
             <div className="footer-bottom-overlay absolute-full pointer-events-none bg-black opacity-0 z-1" />
             <div className="w-full text-white">
-              <Wordmark />
+              <Wordmark tone="white" />
             </div>
             <div className="flex justify-between items-end text-white max-xl:hidden">
               <div className="no-br opacity-52">
