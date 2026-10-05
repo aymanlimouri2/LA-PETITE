@@ -31,7 +31,10 @@ export function Locations() {
                 <div className="works-item-bracket-left flex items-center xl:justify-end xl:flex-1">
                   <OrganicMark side="left" />
                 </div>
-                <h3 className="works-item-title text-center max-xl:flex-1 font-normal">{l.name}</h3>
+                {/* Title size only: one line between the marks at every width (ayman, 2026-10-05). */}
+                <h3 className="works-item-title text-center max-xl:flex-1 font-normal whitespace-nowrap text-[2.8rem] md:text-[6.1rem] lg:text-[8.3rem] xl:text-[10rem]">
+                  {l.name}
+                </h3>
                 <div className="works-item-bracket-right flex items-center xl:flex-1">
                   <OrganicMark side="right" />
                 </div>
