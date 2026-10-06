@@ -632,10 +632,3 @@
   /* 29LT Zeyn Medium is the final Arabic face; file TBD. System fallback meanwhile. */
   font-family: 'Geeza Pro', 'Noto Naskh Arabic', 'Noto Sans Arabic', serif;
 }
-
-/* Poster: below 1200px the image scrub does not run, so the photo sits flush with its frame. */
-@media (max-width: 1199.98px) {
-  .poster [data-piece='fullwidth-image'] {
-    clip-path: none !important;
-  }
-}
