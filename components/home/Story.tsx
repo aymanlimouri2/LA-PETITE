@@ -1,7 +1,7 @@
 import { Corners } from '@/components/Corners'
-import { Placeholder } from '@/components/Placeholder'
+import { Photo } from '@/components/Photo'
 import { Subtitle } from '@/components/Subtitle'
-import { site, tbd } from '@/content/site'
+import { cafePhotos, site, tbd } from '@/content/site'
 
 /* 01 Story (reference 01 Studio block). Beige ground. */
 export function Story() {
@@ -19,7 +19,7 @@ export function Story() {
           <div className="absolute top-0 left-0 w-full h-[calc(100%_+_25rem)]">
             <div className="relative md:sticky md:top-62 md:left-0 w-full h-0 pt-[120%]">
               <div className="absolute-full">
-                <Placeholder tone="harvest" label="Portrait TBD" />
+                <Photo {...cafePhotos.facade} />
               </div>
             </div>
           </div>

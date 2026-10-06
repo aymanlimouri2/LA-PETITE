@@ -1,5 +1,5 @@
-import { Placeholder } from '@/components/Placeholder'
-import { site, tbd } from '@/content/site'
+import { Photo } from '@/components/Photo'
+import { cafePhotos, site, tbd } from '@/content/site'
 
 /* 03 Farm to table (reference 03 Vision chapter). Pinned takeover, then value steps. */
 export function Farm() {
@@ -21,7 +21,7 @@ export function Farm() {
           <div className="vision-image relative w-full h-0 pt-[130%] body-60 text-white overflow-hidden">
             <div className="vision-image-scroll absolute-full">
               <div className="vision-image-parallax absolute top-0 left-0 w-full h-[130%] xl:h-full">
-                <Placeholder tone="beans" label="Photo TBD" />
+                <Photo {...cafePhotos.terraceTall} />
                 <div className="absolute-full bg-black/24" />
               </div>
             </div>

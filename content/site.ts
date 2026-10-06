@@ -120,3 +120,28 @@ export const commitments = [
   { title: 'Emirates Bio Farm', text: site.brandLines.farm },
   ...site.values.map((title) => ({ title, text: tbd('Card copy') })),
 ]
+
+/*
+ * Café photography supplied by ayman (2026-10-06). Which location each shows
+ * is TBD, so none is tied to Al Ain or Abu Dhabi. `s` is the smaller copy
+ * used in the Spaces cloud.
+ */
+type CafePhoto = { src: string; s: string; alt: string; width: number; height: number }
+const cafe = (n: number, alt: string, portrait = false, w = 2000): CafePhoto => ({
+  src: `/images/cafe/la-petite-${n}.jpg`,
+  s: `/images/cafe/la-petite-${n}-s.jpg`,
+  alt,
+  width: portrait ? Math.round((w * 2) / 3) : w,
+  height: portrait ? w : Math.round((w * 2) / 3),
+})
+export const cafePhotos = {
+  facade: cafe(33, 'The La Petite sign above the open café front and terrace', true),
+  terraceTall: cafe(24, 'The terrace and the lit café through its open glass front', true),
+  lounge: cafe(43, 'Inside La Petite: low seats, a lamp and the long window', true),
+  olive: cafe(28, 'An olive tree in the garden in front of the café at night', false, 2400),
+  interior: cafe(7, 'Inside La Petite by day: the counter, flowers and stools'),
+  stage: cafe(25, 'The café interior seen from the terrace at dusk'),
+  night: cafe(27, 'The café at night through its folding glass doors'),
+  courtyard: cafe(34, 'The terrace and counter in the evening'),
+  terraceDay: cafe(48, 'The terrace by day with guests and greenery'),
+}

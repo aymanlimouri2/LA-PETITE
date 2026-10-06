@@ -1,9 +1,9 @@
 import { OrganicMark } from '@/components/OrganicMark'
-import { Placeholder } from '@/components/Placeholder'
-import { site } from '@/content/site'
+import { Photo } from '@/components/Photo'
+import { cafePhotos, site } from '@/content/site'
 
 /*
- * Hero (reference cover-home). Film or still of a La Petite café is TBD;
+ * Hero (reference cover-home). Still: ayman's café photo; a film is TBD;
  * with no film the loader proceeds exactly as the reference does without one.
  */
 const heroFilm: string | null = null
@@ -47,16 +47,16 @@ export function Hero() {
                 />
               ) : (
                 <div className="parallax-el w-full h-full">
-                  <Placeholder tone="cinnamon" label="Hero film or still TBD" />
+                  <Photo {...cafePhotos.olive} />
                 </div>
               )}
               <div className="absolute-full bg-black/24" />
             </div>
           </div>
           <div className="absolute top-0 left-0 w-full h-screen-mobile xl:h-screen">
-            <div className="cover-home-title-light absolute top-1/2 xl:top-[25vh] max-xl:-translate-y-1/2 left-margin max-xl:right-margin xl:w-col-3 body-48 md:body-72 xl:body-48 text-black" />
+            <div className="cover-home-title-light absolute top-1/2 xl:top-[25vh] max-xl:-translate-y-1/2 left-margin max-xl:right-margin xl:w-col-3 body-48 md:body-72 xl:body-48 text-white" />
           </div>
-          <div className="cover-home-bottom-light sticky left-0 bottom-margin w-full grid-w items-end text-black">
+          <div className="cover-home-bottom-light sticky left-0 bottom-margin w-full grid-w items-end text-white">
             <div className="col-span-2 body-16 max-xl:hidden opacity-52 flex items-center gap-x-4">
               <OrganicMark side="left" />
               <span>Scroll</span>

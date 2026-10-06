@@ -1,6 +1,5 @@
-import { Placeholder } from '@/components/Placeholder'
-import type { Tone } from '@/content/site'
-import { locations } from '@/content/site'
+import { Photo } from '@/components/Photo'
+import { cafePhotos, locations } from '@/content/site'
 
 type Size = 'large' | 'medium' | 'small'
 
@@ -8,53 +7,53 @@ interface Cell {
   col: string
   item: string
   size: Size
-  tone: Tone
+  photo: keyof typeof cafePhotos
 }
 
 /*
  * Cloud placements copied from the reference so the parallax depths,
- * fades and the takeover split land the same. Photography TBD (about 20
- * café, coffee, food and atmosphere images needed).
+ * fades and the takeover split land the same. Photos are ayman's café
+ * photography (2026-10-06), cycled through the cloud's 19 slots.
  */
 const rows: { className: string; cells: Cell[] }[] = [
   {
     className: 'grid grid-cols-6 xl:grid-cols-12 gap-x-gutter px-margin',
     cells: [
-      { col: 'col-span-3', item: '-ml-col-2 xl:-ml-col-1', size: 'large', tone: 'harvest' },
-      { col: 'col-span-1 flex items-end', item: 'max-xl:-ml-col-1 translate-y-1/2', size: 'small', tone: 'tawny' },
-      { col: 'col-start-5 col-end-7 xl:col-start-6 xl:col-end-8 flex items-center', item: 'opacity-40', size: 'medium', tone: 'rustic' },
-      { col: 'col-span-2 xl:col-start-9 xl:col-end-11 max-xl:mt-150', item: 'max-xl:-ml-col-1 xl:-translate-y-1/2', size: 'medium', tone: 'cinnamon' },
-      { col: 'col-start-6 col-end-7 xl:col-start-12 xl:col-end-13 flex items-center max-xl:mt-65', item: 'opacity-20 -translate-y-1/2', size: 'small', tone: 'almond' },
+      { col: 'col-span-3', item: '-ml-col-2 xl:-ml-col-1', size: 'large', photo: 'interior' },
+      { col: 'col-span-1 flex items-end', item: 'max-xl:-ml-col-1 translate-y-1/2', size: 'small', photo: 'night' },
+      { col: 'col-start-5 col-end-7 xl:col-start-6 xl:col-end-8 flex items-center', item: 'opacity-40', size: 'medium', photo: 'terraceTall' },
+      { col: 'col-span-2 xl:col-start-9 xl:col-end-11 max-xl:mt-150', item: 'max-xl:-ml-col-1 xl:-translate-y-1/2', size: 'medium', photo: 'courtyard' },
+      { col: 'col-start-6 col-end-7 xl:col-start-12 xl:col-end-13 flex items-center max-xl:mt-65', item: 'opacity-20 -translate-y-1/2', size: 'small', photo: 'stage' },
     ],
   },
   {
     className: 'grid grid-cols-6 xl:grid-cols-12 gap-x-gutter px-margin',
     cells: [
-      { col: 'col-span-2 flex items-end xl:items-center', item: 'translate-y-1/2 xl:-ml-col-1 xl:-translate-y-1/4', size: 'medium', tone: 'tawny' },
-      { col: 'col-span-1 xl:col-start-3 xl:col-end-4 flex xl:items-end', item: 'opacity-20 -translate-y-1/2 xl:translate-y-1/2', size: 'small', tone: 'beans' },
-      { col: 'col-span-3 xl:col-start-5 xl:col-end-7 flex items-center max-xl:translate-x-col-1', item: '', size: 'medium', tone: 'harvest' },
-      { col: 'col-start-6 col-end-7 xl:col-start-8 xl:col-end-9 max-xl:hidden', item: 'opacity-20 max-xl:mt-180 xl:-translate-y-1/2', size: 'small', tone: 'rustic' },
-      { col: 'col-start-4 col-end-5 xl:col-start-10 xl:col-end-13 flex xl:items-center pb-64 max-xl:hidden', item: '', size: 'large', tone: 'cinnamon' },
+      { col: 'col-span-2 flex items-end xl:items-center', item: 'translate-y-1/2 xl:-ml-col-1 xl:-translate-y-1/4', size: 'medium', photo: 'terraceDay' },
+      { col: 'col-span-1 xl:col-start-3 xl:col-end-4 flex xl:items-end', item: 'opacity-20 -translate-y-1/2 xl:translate-y-1/2', size: 'small', photo: 'lounge' },
+      { col: 'col-span-3 xl:col-start-5 xl:col-end-7 flex items-center max-xl:translate-x-col-1', item: '', size: 'medium', photo: 'olive' },
+      { col: 'col-start-6 col-end-7 xl:col-start-8 xl:col-end-9 max-xl:hidden', item: 'opacity-20 max-xl:mt-180 xl:-translate-y-1/2', size: 'small', photo: 'facade' },
+      { col: 'col-start-4 col-end-5 xl:col-start-10 xl:col-end-13 flex xl:items-center pb-64 max-xl:hidden', item: '', size: 'large', photo: 'interior' },
     ],
   },
   {
     className:
       'grid grid-cols-6 xl:grid-cols-12 gap-x-gutter px-margin pt-[calc(var(--vh)_*_0.6)] pb-[calc(var(--vh)_*_0.5)] md:pt-[calc(var(--vh)_*_0.8)] xl:py-0',
     cells: [
-      { col: 'col-span-3 max-xl:order-last max-xl:translate-x-col-2', item: 'xl:-ml-col-1', size: 'large', tone: 'rustic' },
-      { col: 'col-span-1 flex xl:items-end', item: 'opacity-20 -translate-y-1/2 xl:translate-y-1/2', size: 'small', tone: 'harvest' },
-      { col: 'col-start-2 col-end-4 xl:col-start-9 xl:col-end-11 flex items-end xl:items-center', item: 'max-xl:translate-y-1/2', size: 'medium', tone: 'almond' },
-      { col: 'col-start-12 col-end-13 max-xl:hidden', item: 'opacity-20', size: 'small', tone: 'tawny' },
+      { col: 'col-span-3 max-xl:order-last max-xl:translate-x-col-2', item: 'xl:-ml-col-1', size: 'large', photo: 'night' },
+      { col: 'col-span-1 flex xl:items-end', item: 'opacity-20 -translate-y-1/2 xl:translate-y-1/2', size: 'small', photo: 'terraceTall' },
+      { col: 'col-start-2 col-end-4 xl:col-start-9 xl:col-end-11 flex items-end xl:items-center', item: 'max-xl:translate-y-1/2', size: 'medium', photo: 'courtyard' },
+      { col: 'col-start-12 col-end-13 max-xl:hidden', item: 'opacity-20', size: 'small', photo: 'stage' },
     ],
   },
   {
     className: 'grid-w max-xl:hidden',
     cells: [
-      { col: 'col-span-2 flex items-end', item: '-ml-col-1', size: 'medium', tone: 'beans' },
-      { col: 'col-start-3 col-end-4 flex items-end', item: 'translate-y-1/2 opacity-20', size: 'small', tone: 'rustic' },
-      { col: 'col-start-5 col-end-7 flex items-center', item: '', size: 'medium', tone: 'tawny' },
-      { col: 'col-start-8 col-end-9', item: '', size: 'small', tone: 'harvest' },
-      { col: 'col-start-10 col-end-13 flex items-center pb-64', item: '', size: 'large', tone: 'almond' },
+      { col: 'col-span-2 flex items-end', item: '-ml-col-1', size: 'medium', photo: 'terraceDay' },
+      { col: 'col-start-3 col-end-4 flex items-end', item: 'translate-y-1/2 opacity-20', size: 'small', photo: 'lounge' },
+      { col: 'col-start-5 col-end-7 flex items-center', item: '', size: 'medium', photo: 'olive' },
+      { col: 'col-start-8 col-end-9', item: '', size: 'small', photo: 'facade' },
+      { col: 'col-start-10 col-end-13 flex items-center pb-64', item: '', size: 'large', photo: 'interior' },
     ],
   },
 ]
@@ -83,7 +82,7 @@ export function Spaces() {
               <div key={c} className={cell.col}>
                 <div className={`works-grid-item relative w-full h-0 pt-[130%] ${cell.item}`} data-size={cell.size}>
                   <div className="works-grid-image will-change-transform absolute-full">
-                    <Placeholder tone={cell.tone} />
+                    <Photo {...cafePhotos[cell.photo]} src={cafePhotos[cell.photo].s} />
                   </div>
                 </div>
               </div>
