@@ -1,0 +1,634 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens.
+ * The grid, fluid sizing, type scale, durations and easings are the locked
+ * reference system (blueprint sections 1 and 11). Colours and faces are
+ * La Petite's; final screen values and font files are TBD (blueprint 10, 11).
+ */
+@theme {
+  --color-*: initial;
+  /* Brand book black: rendered swatch ≈ #282422, stated #000000. Final value TBD. */
+  --color-black: #282422;
+  /* Brand book off-white, stated #e3e2e0. Used wherever the reference uses white. */
+  --color-white: #e3e2e0;
+  /* Brand book beige, rendered swatch ≈ #ddd4b9. Final value TBD. */
+  --color-beige: #ddd4b9;
+  /* Secondary text: black at reduced opacity instead of the reference's grey (digital extension). */
+  --color-mist: color-mix(in srgb, #282422 36%, transparent);
+  /* Was brand book cinnamon #5f3f30; brown replaced with pure white (2026-10-04). */
+  --color-red: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-*: initial;
+  /* Temporary development placeholders for Garnett (body) and Romano (display). */
+  --font-body: var(--font-garnett-placeholder), sans-serif;
+  --font-display: var(--font-romano-placeholder), serif;
+
+  --spacing: 0.1rem;
+  --spacing-px: 1px;
+  --border-width-px: 1px;
+  --spacing-margin: var(--margin);
+  --spacing-gutter: var(--gutter);
+  --spacing-header: var(--header-height);
+  --spacing-screen: 100vh;
+  --spacing-screen-mobile: var(--vh);
+  --spacing-col-1: var(--column);
+  --spacing-col-2: calc(var(--column) * 2);
+  --spacing-col-4: calc(var(--column) * 4);
+  --spacing-col-5: calc(var(--column) * 5);
+  --spacing-col-6: calc(var(--column) * 6);
+  --width-screen: var(--vw);
+  --width-col-2: calc(var(--column) * 2 - var(--gutter));
+  --width-col-3: calc(var(--column) * 3 - var(--gutter));
+  --width-col-offset-3: calc(var(--column) * 3);
+  --width-col-4: calc(var(--column) * 4 - var(--gutter));
+  --flex-basis-col-2: calc(var(--column) * 2 - var(--gutter));
+  --flex-basis-col-3: calc(var(--column) * 3 - var(--gutter) / 2);
+  --height-screen-mobile: var(--vh);
+  --height-screen: 100vh;
+  --height-header: var(--header-height);
+
+  --text-*: initial;
+  --text-12: 1.2rem;
+  --text-14: 1.4rem;
+  --text-16: 1.6rem;
+  --text-20: 2rem;
+  --text-24: 2.4rem;
+  --text-32: 3.2rem;
+  --text-36: 3.6rem;
+  --text-48: 4.8rem;
+  --text-60: 6rem;
+  --text-72: 7.2rem;
+  --text-100: 10rem;
+
+  --radius-2: 0.2rem;
+  --radius-4: 0.4rem;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-alpha: cubic-bezier(0.25, 0.46, 0.45, 0.9);
+  --transition-duration-fast: 0.35s;
+  --transition-duration-normal: 0.45s;
+  --transition-duration-smooth: 0.7s;
+}
+
+:root {
+  --size: 375;
+  --margin: 1.6rem;
+  --gutter: 1rem;
+  --header-height: 3.8rem;
+  --vw: 100vw;
+  --vh: calc(var(--vh-initial, 1vh) * 100);
+  --vh-dynamic: calc(var(--vh-initial-dynamic, 1vh) * 100);
+  --v-ratio: 1;
+  --column: calc((var(--vw) - var(--margin) * 2) / 6);
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --size: 768;
+    --margin: 2rem;
+    --header-height: 3.8rem;
+    --column: calc((var(--vw) - var(--margin) * 2) / 12);
+  }
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --size: 1024;
+  }
+}
+
+@media (min-width: 80rem) {
+  :root {
+    --size: 1440;
+  }
+}
+
+/* Type scale: reference sizes and line heights, La Petite faces. */
+@utility body-12 {
+  font-size: var(--text-12);
+  line-height: 120%;
+}
+@utility body-14 {
+  font-size: var(--text-14);
+  line-height: 120%;
+}
+@utility body-16 {
+  font-size: var(--text-16);
+  line-height: 110%;
+}
+@utility body-20 {
+  font-size: var(--text-20);
+  line-height: 130%;
+}
+@utility body-24 {
+  font-size: var(--text-24);
+  line-height: 110%;
+}
+@utility body-32 {
+  font-size: var(--text-32);
+  line-height: 110%;
+}
+@utility body-36 {
+  font-size: var(--text-36);
+  line-height: 110%;
+}
+@utility body-48 {
+  font-size: var(--text-48);
+  line-height: 110%;
+}
+@utility body-60 {
+  font-size: var(--text-60);
+  line-height: 110%;
+}
+@utility body-72 {
+  font-size: var(--text-72);
+  line-height: 100%;
+}
+@utility body-100 {
+  font-size: var(--text-100);
+  line-height: 110%;
+}
+
+@utility grid-w {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  column-gap: var(--spacing-gutter);
+  padding-inline: var(--spacing-margin);
+  @media (min-width: 48rem) {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+@utility absolute-full {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@utility absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@utility flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@utility no-br {
+  & br {
+    display: none;
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+@utility z-widget {
+  z-index: 9;
+}
+@utility z-header {
+  z-index: 10;
+}
+@utility z-transition {
+  z-index: 15;
+}
+@utility z-loader {
+  z-index: 30;
+}
+
+@utility svg-wrapper {
+  & svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@layer base {
+  html {
+    font-size: calc(10 * (100vw / var(--size)));
+    line-height: normal;
+  }
+
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  html.lenis {
+    height: auto;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-black);
+    color: var(--color-black);
+    font-family: var(--font-body);
+    font-size: var(--text-16);
+    line-height: 110%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  body ::selection {
+    background-color: var(--color-black);
+    color: var(--color-white);
+  }
+
+  img,
+  svg,
+  video {
+    display: block;
+    vertical-align: middle;
+  }
+}
+
+/* Scroll container: Lenis drives #app, as in the reference. */
+#app {
+  position: relative;
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+#app::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+#wrapper {
+  position: relative;
+}
+
+[data-view] {
+  margin-top: calc(var(--spacing-header) * -1);
+  background-color: var(--color-white);
+  width: 100%;
+}
+
+/* Text splitting */
+.word,
+.char,
+.char-w {
+  display: inline-block;
+}
+
+.line-w,
+.char-w {
+  overflow: hidden;
+}
+
+.offset-title .line-w {
+  display: inline-block;
+}
+
+.offset-title .line-w + .line-w {
+  margin-top: -1.5rem;
+}
+
+@media (min-width: 48rem) {
+  .offset-title .line-w + .line-w {
+    margin-top: -1rem;
+  }
+}
+
+.subtitle-text .char {
+  position: relative;
+}
+
+.subtitle-text .char::before {
+  content: attr(data-char);
+  position: absolute;
+  top: -100%;
+  left: 0;
+}
+
+/* Wordmark placeholder (vector letters TBD from TB.D) */
+.wordmark {
+  position: relative;
+  width: 100%;
+}
+
+.wordmark-letter {
+  position: absolute;
+  will-change: transform;
+}
+
+.wordmark-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+}
+
+/* Stacked logo files follow the header's light state with its colour transition. */
+.wordmark-auto .wordmark-img {
+  transition: opacity var(--transition-duration-normal) var(--ease-out);
+}
+
+.wordmark-auto .wordmark-img-white,
+.header-light .wordmark-auto .wordmark-img-black {
+  opacity: 0;
+}
+
+.header-light .wordmark-auto .wordmark-img-white {
+  opacity: 1;
+}
+
+/* Header */
+.header {
+  transition-property: color, fill, stroke;
+  transition-duration: var(--transition-duration-normal);
+  transition-timing-function: var(--ease-out);
+}
+
+.header-light {
+  color: var(--color-white);
+}
+
+.header-link + .header-link {
+  padding-left: 0.6rem;
+}
+
+#semicolon {
+  animation: 1s step-start infinite blink;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.list-o .list-o-item {
+  pointer-events: auto;
+}
+
+.list-o.a .list-o-item,
+.list-o:hover .list-o-item {
+  opacity: 0.52;
+}
+
+.list-o.a .list-o-item.a,
+.list-o .list-o-item.a {
+  opacity: 1;
+}
+
+.header:not(.header-light) .list-o:hover .list-o-item,
+.header:not(.header-light) .list-o.a .list-o-item {
+  opacity: 0.24;
+}
+
+.header:not(.header-light) .list-o.a .list-o-item.a,
+.header:not(.header-light) .list-o .list-o-item.a {
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  .list-o:hover {
+    pointer-events: none;
+  }
+
+  .list-o .list-o-item:hover,
+  .header:not(.header-light) .list-o .list-o-item:hover {
+    opacity: 1;
+  }
+}
+
+/* Link underlines: two 1px lines, 0.7s ease-out, second line 0.15s later */
+.link-underline,
+.link-underline-footer,
+.link-underline-hover,
+.link-underline-mist {
+  position: relative;
+  cursor: pointer;
+}
+
+.link-underline::before,
+.link-underline::after,
+.link-underline-footer::before,
+.link-underline-footer::after,
+.link-underline-hover::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transition: scale var(--transition-duration-smooth) var(--ease-out);
+}
+
+.link-underline::before,
+.link-underline::after,
+.link-underline-hover::before {
+  bottom: 0.1rem;
+  background-color: currentColor;
+}
+
+.link-underline-footer::before,
+.link-underline-footer::after {
+  bottom: 0;
+  background-color: var(--color-white);
+}
+
+.link-underline::before,
+.link-underline-footer::before,
+.link-underline-hover::before {
+  transform-origin: 100%;
+  scale: 0 1;
+  pointer-events: none;
+}
+
+.link-underline::after,
+.link-underline-footer::after {
+  transform-origin: 0;
+  scale: 1 1;
+}
+
+.link-underline-mist::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-mist);
+}
+
+@media (hover: hover) {
+  .link-underline:hover::before,
+  .link-underline-footer:hover::before {
+    transform-origin: 0;
+    scale: 1 1;
+    transition-delay: 0.15s;
+  }
+
+  .link-underline:hover::after,
+  .link-underline-footer:hover::after {
+    transform-origin: 100%;
+    scale: 0 1;
+    transition-delay: 0s;
+  }
+
+  .link-underline-hover:hover::before {
+    transform-origin: 0;
+    scale: 1 1;
+  }
+}
+
+/* Discover pill and the simple pill on inner pages */
+.widget,
+.widget-simple {
+  position: relative;
+}
+
+.widget::before,
+.widget-simple::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  border-radius: var(--radius-4);
+  background-color: var(--color-black);
+  transition: scale var(--transition-duration-smooth) var(--ease-out);
+}
+
+:is(.widget, .widget-simple) :is(.widget-title, .widget-cta, .widget-left, .widget-right) {
+  transition: translate var(--transition-duration-smooth) var(--ease-out);
+}
+
+:is(.widget, .widget-simple) .widget-icon svg {
+  transition: rotate var(--transition-duration-smooth) var(--ease-out);
+}
+
+@media (hover: hover) {
+  :is(.widget, .widget-simple):not(.a):hover::before {
+    scale: 1.05;
+  }
+
+  :is(.widget, .widget-simple):not(.a):hover :is(.widget-title, .widget-left) {
+    translate: -0.5rem 0;
+  }
+
+  :is(.widget, .widget-simple):not(.a):hover :is(.widget-cta, .widget-right) {
+    translate: 0.5rem 0;
+  }
+
+  :is(.widget, .widget-simple):not(.a):hover .widget-icon svg {
+    rotate: -90deg;
+  }
+}
+
+.cover-manifesto h1 strong {
+  font-weight: 400;
+  color: var(--color-black);
+}
+
+.follow-mouse-img .lazy.loaded {
+  opacity: 1;
+  transition-duration: 0s;
+}
+
+.single-work section:last-child {
+  margin-bottom: 0;
+}
+
+.single-work section:last-child.content {
+  margin-bottom: 8rem;
+}
+
+.widget-block-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  padding-right: 0.8rem;
+  padding-left: 1.2rem;
+  white-space: nowrap;
+}
+
+.widget-block-title:first-child {
+  position: relative;
+}
+
+/* Images */
+.image .lazy {
+  opacity: 0;
+}
+
+.image .lazy.loaded {
+  opacity: 1;
+  transition: opacity var(--transition-duration-smooth);
+}
+
+/* Rich text */
+.wysiwyg p + p {
+  margin-top: 2rem;
+}
+
+.contact-title .line-w:last-child {
+  display: inline-flex;
+}
+
+/* Stacked cards (story page) */
+.stack-cards-wrapper {
+  --negative-offset: 0;
+  --scroll-progress: 0;
+  --final-offset: 0px;
+}
+
+@media (min-width: 80rem) {
+  .stack-cards-wrapper {
+    height: var(--container-height);
+  }
+
+  .stack-cards-card {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--card-height);
+  }
+
+  .stack-cards-card .stack-cards-card-inner {
+    position: sticky;
+    top: calc(
+      var(--top-offset) + var(--scroll-offset, 0px) * var(--scroll-progress, 0) - var(--final-offset, 0px)
+    );
+  }
+}
+
+/* Newsletter error state */
+#newsletter-form.error {
+  border-color: var(--color-red);
+  color: var(--color-red);
+}
+
+#newsletter-form.error input,
+#newsletter-form.error input::placeholder {
+  color: var(--color-red);
+}
+
+@utility font-arabic {
+  /* 29LT Zeyn Medium is the final Arabic face; file TBD. System fallback meanwhile. */
+  font-family: 'Geeza Pro', 'Noto Naskh Arabic', 'Noto Sans Arabic', serif;
+}
